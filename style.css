@@ -1,0 +1,23 @@
+:root{
+    --border: rgb(89, 89, 89);
+}
+
+body{
+    margin: none;
+    padding: 0;
+}
+
+#board{
+    height: 90vh;
+    width: 95vw;
+    margin: 20px auto;
+    display: grid;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.cells{
+    background-color: whitesmoke;
+    border-top: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+}
