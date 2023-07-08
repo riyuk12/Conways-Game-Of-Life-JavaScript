@@ -1,10 +1,11 @@
 :root{
-    --border: rgb(89, 89, 89);
+    --border: rgb(136, 136, 136);
 }
 
 body{
     margin: none;
     padding: 0;
+    background-color: rgb(30, 30, 30);
 }
 
 #board{
@@ -17,11 +18,11 @@ body{
 }
 
 .cells{
-    background-color: whitesmoke;
+    background-color: rgb(34, 34, 34);
     border-top: 1px solid var(--border);
     border-left: 1px solid var(--border);
 }
 
 .alive{
-    background-color: rgb(220, 220, 220);
+    background-color: rgb(233, 233, 233);
 }

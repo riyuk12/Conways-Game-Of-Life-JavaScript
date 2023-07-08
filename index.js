@@ -1,5 +1,5 @@
 let board;
-let cellSize = 12; //px
+let cellSize = 30; //px
 let rows;
 let columns;
 let cells = [];
@@ -19,8 +19,40 @@ window.onload = function() {
     board = document.getElementById("board");
     updateBoard();
     fillCells();
+
     let startButton = document.getElementById("start");
     startButton.addEventListener("click", startGame);
+    
+    let clearButton = document.getElementById("clear");
+    clearButton.addEventListener("click", clearBoard);
+    
+    let randomButton = document.getElementById("random");
+    randomButton.addEventListener("click", randomBoard);
+}
+
+function clearBoard() {
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < columns; j++) {
+            cells[i][j] = false;
+        }
+    }
+    renderGame();
+}
+
+function randomBoard() {
+    let randomInput = document.querySelector(".randomInpt");
+    let percentage = parseInt(randomInput.value) || 50;
+    let numCells = Math.floor((rows * columns * percentage) / 100);
+    
+    clearBoard();
+    
+    for (let i = 0; i < numCells; i++) {
+        let row = Math.floor(Math.random() * rows);
+        let col = Math.floor(Math.random() * columns);
+        cells[row][col] = true;
+    }
+    
+    renderGame();
 }
 
 function updateBoard() {
@@ -49,14 +81,13 @@ function fillCells() {
             let isAlive = false;
             row.push(isAlive);
             cell.addEventListener("click", () => {
-                if (!gameStarted) {
-                    isAlive = !isAlive;
-                    row[j] = isAlive;
-                    if (isAlive) {
-                        cell.classList.add("alive");
-                    } else {
-                        cell.classList.remove("alive");
-                    }
+                isAlive = !isAlive;
+                row[j] = isAlive;
+                cells[i][j] = isAlive;
+                if (isAlive) {
+                    cell.classList.add("alive");
+                } else {
+                    cell.classList.remove("alive");
                 }
             });
             board.appendChild(cell);
@@ -65,10 +96,20 @@ function fillCells() {
     }
 }
 
+
+let intervalId;
 function startGame() {
-    gameStarted = true;
-    setInterval(updateGame, 100); // update the game state every 100ms
+    if (gameStarted) {
+        clearInterval(intervalId);
+        gameStarted = false;
+        document.getElementById("start").innerText="Start";
+    } else {
+        gameStarted = true;
+        document.getElementById("start").innerText="Stop";
+        intervalId = setInterval(updateGame, 100); // update the game state every 100ms
+    }
 }
+
 
 function updateGame() {
     // create a new array to store the updated game state
@@ -77,13 +118,15 @@ function updateGame() {
         let newRow = [];
         for (let j = 0; j < columns; j++) {
             let isAlive = cells[i][j];
-            let neighbors = countNeighbors(i, j);
-            if (isAlive && neighbors < 2) {
-                isAlive = false;
-            } else if (isAlive && neighbors > 3) {
-                isAlive = false;
-            } else if (!isAlive && neighbors === 3) {
-                isAlive = true;
+            if (isAlive || countNeighbors(i, j) > 0) { // only update cells that are alive or have alive neighbors
+                let neighbors = countNeighbors(i, j);
+                if (isAlive && neighbors < 2) {
+                    isAlive = false;
+                } else if (isAlive && neighbors > 3) {
+                    isAlive = false;
+                } else if (!isAlive && neighbors === 3) {
+                    isAlive = true;
+                }
             }
             newRow.push(isAlive);
         }
@@ -97,19 +140,16 @@ function updateGame() {
 
 function countNeighbors(row, col) {
     let count = 0;
-    for (let i = -1; i <= 1; i++) {
-        for (let j = -1; j <= 1; j++) {
-            if (i === 0 && j === 0) continue;
-            let r = row + i;
-            let c = col + j;
-            if (r >= 0 && r < rows && c >= 0 && c < columns) {
-                count += cells[r][c] ? 1 : 0;
-            }
+    for (let i = 0; i < operations.length; i++) {
+        let op = operations[i];
+        let r = row + op[0];
+        let c = col + op[1];
+        if (r >= 0 && r < rows && c >= 0 && c < columns) {
+            count += cells[r][c] ? 1 : 0;
         }
     }
     return count;
 }
-
 function renderGame() {
     let cellElements = document.querySelectorAll(".cells");
     for (let i = 0; i < rows; i++) {
