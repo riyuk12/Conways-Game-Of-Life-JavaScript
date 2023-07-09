@@ -10,7 +10,7 @@ body{
 }
 
 #board{
-    height: 90vh;
+    height: 85vh;
     width: 95vw;
     margin: 20px auto;
     display: grid;
@@ -26,4 +26,12 @@ body{
 
 .alive{
     background-color: rgb(233, 233, 233);
+}
+
+#fpsCounter{
+    font-size: 13px;
+}
+
+#fpsCounter span{
+    font-size: 10px;
 }

@@ -14,6 +14,15 @@ const operations = [
     [-1, 0],
 ];
 let aliveCells = new Set();
+// let aliveCells = new Set([
+//     "5,1", "5,2", "6,1", "6,2",
+//     "5,11", "6,11", "7,11", "4,12", "3,13", "3,14", "8,12", "9,13", "9,14", "6,15", "4,16", "5,17", "6,17", "7,17", "6,18", "8,16",
+//     "3,21", "4,21", "5,21", "3,22", "4,22", "5,22", "2,23", "6,23", "1,25", "2,25", "6,25", "7,25",
+//     "3,35", "4,35", "3,36", "4,36"
+// ]);
+let fps = 0;
+let lastFrameTime = 0;
+let frameCount = 0;
 
 window.onload = function() {
     board = document.getElementById("board");
@@ -31,6 +40,71 @@ window.onload = function() {
 
     let sizeSlider = document.getElementById("sizeSlider");
     sizeSlider.addEventListener("input", updateSize);
+
+    let templateSelect = document.getElementById("template-select");
+    templateSelect.addEventListener("change", function() {
+        let selectedTemplate = templateSelect.value;
+        loadTemplate(selectedTemplate);
+    });
+}
+
+function loadTemplate(template) {
+    let pattern;
+
+    if(template=="GosperGun"){
+        pattern = [
+            "5,1", "5,2", "6,1", "6,2",
+            "5,11", "6,11", "7,11", "4,12", "3,13", "3,14", "8,12", "9,13", "9,14", "6,15", "4,16", "5,17", "6,17", "7,17", "6,18", "8,16",
+            "3,21", "4,21", "5,21", "3,22", "4,22", "5,22", "2,23", "6,23", "1,25", "2,25", "6,25", "7,25",
+            "3,35", "4,35", "3,36", "4,36"
+        ];
+    }
+
+    else if(template=="glider"){
+        pattern = [
+            "1,0",
+            "2,1",
+            "0,2", "1,2", "2,2"
+        ];
+    }
+
+    else if (template == "lwss") {
+        pattern = [
+            "6,5", "7,5", "8,5", "9,5",
+            "5,6",
+            "9,6",
+            "9,7",
+            "5,8", "8,8"
+        ];
+    }
+
+    else if (template == "pulsar") {
+        pattern = [
+            "7,9", "8,9", "9,9",
+            "7,14", "8,14", "9,14",
+            "12,9", "13,9", "14,9",
+            "12,14", "13,14", "14,14",
+            "5,7", "5,8", "5,9",
+            "10,7", "10,8", "10,9",
+            "5,12", "5,13", "5,14",
+            "10,12", "10,13", "10,14",
+            "12,7", "12,8", "12,9",
+            "17,7", "17,8", "17,9",
+            "12,12", "12,13", "12,14",
+            "17,12", "17,13", "17,14"
+        ];
+    }
+    else{
+        pattern=[];
+    }
+
+    aliveCells.clear();
+
+    for (let cell of pattern) {
+        aliveCells.add(cell);
+    }
+    
+    renderGame();
 }
 
 function clearBoard() {
@@ -80,7 +154,7 @@ function remakeBoard() {
 
     //re-size board
     board.style.width = `95vw`;
-    board.style.height = `90vh`;
+    board.style.height = `85vh`;
 
     // clear the board
     while (board.firstChild) {
@@ -198,4 +272,14 @@ function renderGame() {
             }
         }
     }
+    updateFps();
+}
+
+function updateFps() {
+    let now = performance.now();
+    let delta = now - lastFrameTime;
+    lastFrameTime = now;
+    let currentFps = 1000 / delta;
+    let fpsCounter = document.getElementById("fpsCounter");
+    fpsCounter.innerText = Math.round(currentFps) + " FPS";
 }
