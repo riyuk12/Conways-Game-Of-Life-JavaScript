@@ -7,12 +7,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="fpsCounter">FPS<span>(10fps is normal)</span></div>
     <button id="start">Start</button>
     <button id="clear">Clear</button>
     <button id="random">Random</button>
     Random fill: <input type="text" class="randomInpt">
-    Cell Size(!!Will Affect Performance!!)<input type="range" id="sizeSlider" min="10" max="50" value="30">
+
     <select id="template-select">
         <option value="template1">Select Template</option>
         <option value="glider">Glider</option>
@@ -23,6 +22,19 @@
         <option value="quasar">Quasar</option>
         <option value="period15">Penta-decathalon</option>
     </select>
+
+    <div class="slider cell-size">
+        Cell Size:
+        <input type="range" id="cellSlider" min="10" max="50" value="30">
+    </div>
+    <div class="slider rows">
+        Row amount:
+        <input type="range" id="rowSlider" min="10" max="200" value="80">
+    </div>
+    <div class="slider columns">
+        Column amount:
+        <input type="range" id="columnSlider" min="10" max="200" value="95">
+    </div>
     
     <div id="board"></div>
 </body>

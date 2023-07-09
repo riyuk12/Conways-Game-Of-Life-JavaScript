@@ -10,7 +10,7 @@ body{
 }
 
 #board{
-    height: 85vh;
+    height: 80vh;
     width: 95vw;
     margin: 20px auto;
     display: grid;

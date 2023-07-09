@@ -1,5 +1,7 @@
 let board;
 let cellSize = 25; //px
+let boardHeight=80;
+let boardWidth=95;
 let rows;
 let columns;
 let gameStarted = false;
@@ -14,9 +16,6 @@ const operations = [
     [-1, 0],
 ];
 let aliveCells = new Set();
-let fps = 0;
-let lastFrameTime = 0;
-let frameCount = 0;
 
 window.onload = function() {
     board = document.getElementById("board");
@@ -32,8 +31,14 @@ window.onload = function() {
     let randomButton = document.getElementById("random");
     randomButton.addEventListener("click", randomBoard);
 
-    let sizeSlider = document.getElementById("sizeSlider");
-    sizeSlider.addEventListener("input", updateSize);
+    let cellSlider = document.getElementById("cellSlider");
+    cellSlider.addEventListener("input", updateSize);
+
+    let rowSlider = document.getElementById("rowSlider");
+    rowSlider.addEventListener("input", updateSize);
+
+    let columnSlider = document.getElementById("columnSlider");
+    columnSlider.addEventListener("input", updateSize);
 
     let templateSelect = document.getElementById("template-select");
     templateSelect.addEventListener("change", function() {
@@ -138,8 +143,14 @@ function updateBoard() {
 }
 
 function updateSize() {
-    let sizeSlider = document.getElementById("sizeSlider");
-    cellSize = parseInt(sizeSlider.value);
+    let cellSlider = document.getElementById("cellSlider");
+    cellSize = parseInt(cellSlider.value);
+
+    let rowSlider = document.getElementById("rowSlider");
+    boardHeight = parseInt(rowSlider.value);
+
+    let columnSlider = document.getElementById("columnSlider");
+    boardWidth = parseInt(columnSlider.value);
     remakeBoard();
 }
 
@@ -147,8 +158,8 @@ function remakeBoard() {
     clearBoard();
 
     //re-size board
-    board.style.width = `95vw`;
-    board.style.height = `85vh`;
+    board.style.width = `${boardWidth}vw`;
+    board.style.height = `${boardHeight}vh`;
 
     // clear the board
     while (board.firstChild) {
@@ -269,14 +280,4 @@ function renderGame() {
             }
         }
     }
-    updateFps();
-}
-
-function updateFps() {
-    let now = performance.now();
-    let delta = now - lastFrameTime;
-    lastFrameTime = now;
-    let currentFps = 1000 / delta;
-    let fpsCounter = document.getElementById("fpsCounter");
-    fpsCounter.innerText = Math.round(currentFps) + " FPS";
 }
