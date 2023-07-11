@@ -40,6 +40,9 @@ window.onload = function() {
     let columnSlider = document.getElementById("columnSlider");
     columnSlider.addEventListener("input", updateSize);
 
+    let saveButton = document.getElementById("save");
+    saveButton.addEventListener("click", saveTemplate);
+
     let templateSelect = document.getElementById("template-select");
     templateSelect.addEventListener("change", function() {
         let selectedTemplate = templateSelect.value;
@@ -50,7 +53,12 @@ window.onload = function() {
 function loadTemplate(template) {
     let pattern;
 
-    if(template=="GosperGun"){
+    if (template === "saved") {
+        let aliveCellsString = localStorage.getItem("template");
+        pattern = JSON.parse(aliveCellsString);
+    }
+
+    else if(template === "GosperGun"){
         pattern = [
             "5,1", "5,2", "6,1", "6,2",
             "5,11", "6,11", "7,11", "4,12", "3,13", "3,14", "8,12", "9,13", "9,14", "6,15", "4,16", "5,17", "6,17", "7,17", "6,18", "8,16",
@@ -59,7 +67,7 @@ function loadTemplate(template) {
         ];
     }
 
-    else if(template=="glider"){
+    else if(template === "glider"){
         pattern = [
             "1,0",
             "2,1",
@@ -67,7 +75,7 @@ function loadTemplate(template) {
         ];
     }
 
-    else if (template == "lwssH") {
+    else if (template === "lwssH") {
         pattern = [
             "3,2", "4,2", "5,2", "6,2",
             "2,3","6,3",
@@ -76,19 +84,19 @@ function loadTemplate(template) {
         ];
     }
 
-    else if(template == "lwssV"){
+    else if(template === "lwssV"){
         pattern=[
             "5,6","2,3","4,3","5,4","5,5","5,7","4,7","3,7","2,6"
         ]
     }
 
-    else if (template == "pulsar") {
+    else if (template === "pulsar") {
         pattern = [
             "9,10","8,10","7,10","13,10","14,10","15,10","15,12","14,12","13,12","9,12","8,12","7,12","10,13","10,14","10,15","12,13","12,14","12,15","10,9","10,8","10,7","12,9","12,8","12,7","5,8","5,7","7,5","8,5","5,9","9,5","5,13","5,14","5,15","9,17","8,17","7,17","13,17","15,17","17,13","17,14","17,15","14,17","17,8","17,7","17,9","14,5","15,5","13,5"
         ]
     }
 
-    else if(template=="period15"){
+    else if(template === "period15"){
         pattern=[
             "3,3","3,4","3,5","4,4","5,4","6,4","6,3","6,5","8,3","9,5","9,3","9,4","8,5","8,4","11,3","11,4","11,5","12,4","13,4","14,3","14,4","14,5"
         ]
@@ -104,6 +112,22 @@ function loadTemplate(template) {
     }
     
     renderGame();
+}
+
+function saveTemplate() {
+    let aliveCellsArray = [...aliveCells];
+    let aliveCellsString = JSON.stringify(aliveCellsArray);
+
+    //save to localStorage
+    localStorage.setItem("template", aliveCellsString);
+}
+
+if (localStorage.getItem("template") !== null) {
+    let templateSelect = document.getElementById("template-select");
+    let savedOption = document.createElement("option");
+    savedOption.value = "saved";
+    savedOption.text = "Saved Template";
+    templateSelect.add(savedOption);
 }
 
 function clearBoard() {
@@ -193,8 +217,7 @@ function fillCells() {
     }
 }
 
-
-
+//render time
 let intervalId;
 function startGame() {
     if (gameStarted) {
@@ -226,6 +249,7 @@ function updateGame() {
         }
     }
 
+    //console log current alive cells
     let aliveCellsArray = [...aliveCells];
     console.log(JSON.stringify(aliveCellsArray));
 
