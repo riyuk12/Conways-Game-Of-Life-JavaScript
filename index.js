@@ -44,14 +44,17 @@ window.onload = function() {
     saveButton.addEventListener("click", saveTemplate);
 
     let templateSelect = document.getElementById("template-select");
-    templateSelect.addEventListener("change", function() {
+    templateSelect.addEventListener("click", function() {
         let selectedTemplate = templateSelect.value;
         loadTemplate(selectedTemplate);
     });
 }
 
-function loadTemplate(template) {
+function loadTemplate(template, startRow = 0, startCol = 0) {
     let pattern;
+    startRow=parseInt(document.querySelector("#spawnRow").value);
+    startCol=parseInt(document.querySelector("#spawnCol").value);
+    console.log(startCol,startRow)
 
     if (template === "saved") {
         let aliveCellsString = localStorage.getItem("template");
@@ -105,10 +108,23 @@ function loadTemplate(template) {
         pattern=[];
     }
 
+    let templateStartRow = Infinity;
+    let templateStartCol = Infinity;
+    for (let cell of pattern) {
+        let [row, col] = cell.split(",").map(Number);
+        templateStartRow = Math.min(templateStartRow, row);
+        templateStartCol = Math.min(templateStartCol, col);
+    }
+
+    console.log(templateStartRow,templateStartCol);
+
     aliveCells.clear();
 
     for (let cell of pattern) {
-        aliveCells.add(cell);
+        let [row, col] = cell.split(",").map(Number);
+        row += startRow -templateStartRow;
+        col += startCol -templateStartCol;
+        aliveCells.add(`${row},${col}`);
     }
     
     renderGame();
