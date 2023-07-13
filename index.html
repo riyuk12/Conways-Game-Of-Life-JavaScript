@@ -7,35 +7,43 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button id="start">Start</button>
-    <button id="clear">Clear</button>
-    <button id="random">Random</button>
-    Random fill: <input type="text" class="randomInpt">
-
-    <select id="template-select">
-        <option value="template1">Select Template</option>
-        <option value="glider">Glider</option>
-        <option value="GosperGun">Gosper Gun</option>
-        <option value="lwssH">Lightweight spaceship(horz)</option>
-        <option value="lwssV">Lightweight spaceship(vert)</option>
-        <option value="pulsar">Pulsar</option>
-        <option value="quasar">Quasar</option>
-        <option value="period15">Penta-decathalon</option>
-    </select>
-    Overlay: <input type="checkbox" id="overlay" value="allow">
-    <button id="save">Save as template</button>
-
-    <div class="slider cell-size">
-        Cell Size:
-        <input type="range" id="cellSlider" min="10" max="50" value="30">
+    <div class="container">
+        <div class="buttons">
+            <button id="start">Start</button>
+            <button id="clear">Clear</button>
+            <button id="random">Random</button>
+            <label>Random fill: </label><input type="text" class="randomInpt">
+        </div>
+    
+        <div class="templates">
+            <button id="save">Save as template</button>
+            <select id="template-select">
+                <option value="template1">Select Template</option>
+                <option value="glider">Glider</option>
+                <option value="GosperGun">Gosper Gun</option>
+                <option value="lwssH">Lightweight spaceship(horz)</option>
+                <option value="lwssV">Lightweight spaceship(vert)</option>
+                <option value="pulsar">Pulsar</option>
+                <option value="quasar">Quasar</option>
+                <option value="period15">Penta-decathalon</option>
+            </select>
+            <label>Overlay: </label><input type="checkbox" id="overlay" value="allow">
+        </div>
     </div>
-    <div class="slider rows">
-        Row amount:
-        <input type="range" id="rowSlider" min="10" max="200" value="80">
-    </div>
-    <div class="slider columns">
-        Column amount:
-        <input type="range" id="columnSlider" min="10" max="200" value="95">
+
+    <div class="sliders">
+        <div class="slider cell-size">
+            Cell Size:
+            <input type="range" id="cellSlider" min="10" max="50" value="30">
+        </div>
+        <div class="slider rows">
+            Row amount:
+            <input type="range" id="rowSlider" min="10" max="240" value="80">
+        </div>
+        <div class="slider columns">
+            Column amount:
+            <input type="range" id="columnSlider" min="10" max="240" value="95">
+        </div>
     </div>
     
     <div id="board"></div>
