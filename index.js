@@ -5,6 +5,8 @@ let boardWidth=95;
 let rows;
 let columns;
 let gameStarted = false;
+let selectedTemplate=[];
+let selection=false;
 const operations = [
     [0, 1],
     [0, -1],
@@ -42,18 +44,17 @@ window.onload = function() {
 
     let saveButton = document.getElementById("save");
     saveButton.addEventListener("click", saveTemplate);
+    let overlay=document.getElementById("overlay");
 
     let templateSelect = document.getElementById("template-select");
     templateSelect.addEventListener("click", function() {
-        let selectedTemplate = templateSelect.value;
-        loadTemplate(selectedTemplate);
+        selectedTemplate = templateSelect.value;
+        selection=true;
     });
 }
 
-function loadTemplate(template, startRow = 0, startCol = 0) {
+function loadTemplate(template, startRow, startCol) {
     let pattern;
-    startRow=parseInt(document.querySelector("#spawnRow").value);
-    startCol=parseInt(document.querySelector("#spawnCol").value);
     console.log(startCol,startRow)
 
     if (template === "saved") {
@@ -118,7 +119,10 @@ function loadTemplate(template, startRow = 0, startCol = 0) {
 
     console.log(templateStartRow,templateStartCol);
 
-    aliveCells.clear();
+    if(overlay.checked  == false){
+        aliveCells.clear();
+    }
+    
 
     for (let cell of pattern) {
         let [row, col] = cell.split(",").map(Number);
@@ -220,12 +224,18 @@ function fillCells() {
             let isAlive = false;
             cell.addEventListener("click", () => {
                 isAlive = !isAlive;
-                if (isAlive) {
-                    aliveCells.add(`${i},${j}`);
-                    cell.classList.add("alive");
-                } else {
-                    aliveCells.delete(`${i},${j}`);
-                    cell.classList.remove("alive");
+                if(selection){
+                    loadTemplate(selectedTemplate, i, j);
+                    selection=false;
+                }
+                else{
+                    if (isAlive) {
+                        aliveCells.add(`${i},${j}`);
+                        cell.classList.add("alive");
+                    } else {
+                        aliveCells.delete(`${i},${j}`);
+                        cell.classList.remove("alive");
+                    }
                 }
             });
             board.appendChild(cell);
