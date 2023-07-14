@@ -79,7 +79,7 @@ function loadTemplate(template, startRow, startCol) {
         ];
     }
 
-    else if (template === "lwssH") {
+    else if (template === "lwssV") {
         pattern = [
             "3,2", "4,2", "5,2", "6,2",
             "2,3","6,3",
@@ -88,7 +88,7 @@ function loadTemplate(template, startRow, startCol) {
         ];
     }
 
-    else if(template === "lwssV"){
+    else if(template === "lwssH"){
         pattern=[
             "5,6","2,3","4,3","5,4","5,5","5,7","4,7","3,7","2,6"
         ]
@@ -103,6 +103,18 @@ function loadTemplate(template, startRow, startCol) {
     else if(template === "period15"){
         pattern=[
             "3,3","3,4","3,5","4,4","5,4","6,4","6,3","6,5","8,3","9,5","9,3","9,4","8,5","8,4","11,3","11,4","11,5","12,4","13,4","14,3","14,4","14,5"
+        ]
+    }
+
+    else if(template==="wallV"){
+        pattern=[
+            "3,8","3,9","4,8","4,9","5,8","5,9","6,8","6,9","7,8","7,9","8,8","8,9","9,8","9,9","10,8","10,9","11,8","11,9","12,8","12,9"
+        ]
+    }
+
+    else if(template==="wallH"){
+        pattern=[
+            "3,15","4,16","3,16","4,15","4,17","3,18","3,17","4,18","3,19","4,20","3,20","4,19","3,21","4,21","3,22","4,22","3,23","4,23","3,24","4,24"
         ]
     }
     else{

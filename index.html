@@ -9,12 +9,14 @@
 <body>
     <div class="container">
         <div class="buttons">
-            <button id="start">Start</button>
             <button id="clear">Clear</button>
             <button id="random">Random</button>
-            <label>Random fill: </label><input type="text" class="randomInpt">
+            <label>Random fill: </label><input type="text" class="randomInpt" value="50">
         </div>
-    
+
+        <div class="startdiv">
+            <button id="start">Start</button>
+        </div>
         <div class="templates">
             <button id="save">Save as template</button>
             <select id="template-select">
@@ -26,6 +28,8 @@
                 <option value="pulsar">Pulsar</option>
                 <option value="quasar">Quasar</option>
                 <option value="period15">Penta-decathalon</option>
+                <option value="wallV">10x2 wall Vert</option>
+                <option value="wallH">10x2 wall Horz</option>
             </select>
             <label>Overlay: </label><input type="checkbox" id="overlay" value="allow">
         </div>

@@ -3,7 +3,7 @@
     --background: rgb(30, 30, 30);
     --cell-background: rgb(34, 34, 34);
     --alive-cell-background: rgb(233, 233, 233);
-    --button-background: rgb(40, 40, 40);
+    --button-background: rgb(45, 45, 45);
     --button-hover-background: rgb(50, 50, 50);
     --slider-background: rgb(40, 40, 40);
     --font-color: rgb(190,190,190)
@@ -56,23 +56,41 @@ body {
 .container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .buttons,
 .templates {
     display: flex;
     align-items: center;
+    flex-wrap:wrap-reverse;
+    width: 40vw;
+    gap: 2px;
+}
+.templates{
+    justify-content: end;
 }
 
 .buttons button,
 .templates button,
-.templates select {
+.templates select,
+#start {
     background-color: var(--button-background);
     color: var(--font-color);
     border: none;
-    padding: 10px 15px;
+    padding: 7px 15px;
     margin-right: 10px;
     cursor: pointer;
+}
+
+.templates select{
+    min-width: 10px;
+}
+
+#start{
+    border: 2px solid var(--border);
+    width: 100px;   
+    font-size: medium;
 }
 
 .buttons button:hover,
@@ -108,4 +126,13 @@ body {
 	height :15px;
 	border-radius :50%;
 	background-color :var(--border);
+}
+
+.randomInpt{
+    background-color:var(--button-background);
+    border: 1px solid var(--border);
+    margin-left: 5px;
+    margin-top: 1x;
+    width: 30px;
+    color: var(--font-color);
 }
