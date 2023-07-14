@@ -1,12 +1,13 @@
 let board;
-let cellSize = 25; //px
-let boardHeight=80;
+let cellSize = 23; //px
+let boardHeight=78;
 let boardWidth=95;
 let rows;
 let columns;
 let gameStarted = false;
 let selectedTemplate=[];
 let selection=false;
+let animTime=100;
 const operations = [
     [0, 1],
     [0, -1],
@@ -106,6 +107,12 @@ function loadTemplate(template, startRow, startCol) {
         ]
     }
 
+    else if(template === "oscillator"){
+        pattern=[
+            "10,26","10,27","9,28","9,27","11,27","11,28","10,28","8,30","7,30","7,31","8,31","12,30","12,31","13,31","13,30","10,20","9,20","9,19","10,19","10,39","11,39","11,40","10,40"
+        ]
+    }
+
     else if(template==="wallV"){
         pattern=[
             "3,8","3,9","4,8","4,9","5,8","5,9","6,8","6,9","7,8","7,9","8,8","8,9","9,8","9,9","10,8","10,9","11,8","11,9","12,8","12,9"
@@ -169,7 +176,7 @@ function clearBoard() {
 
 function randomBoard() {
     let randomInput = document.querySelector(".randomInpt");
-    let percentage = parseInt(randomInput.value) || 50;
+    let percentage = parseInt(randomInput.value);
     let numCells = Math.floor((rows * columns * percentage) / 100);
     
     clearBoard();
@@ -258,6 +265,7 @@ function fillCells() {
 //render time
 let intervalId;
 function startGame() {
+    animTime = parseInt(document.querySelector("#animationTime").value);
     if (gameStarted) {
         clearInterval(intervalId);
         gameStarted = false;
@@ -265,7 +273,7 @@ function startGame() {
     } else {
         gameStarted = true;
         document.getElementById("start").innerText="Stop";
-        intervalId = setInterval(updateGame, 100); // update the game state every 100ms
+        intervalId = setInterval(updateGame, animTime); // update the game state every 100ms
     }
 }
 

@@ -35,7 +35,7 @@ body {
 }
 
 #board {
-    height: 80vh;
+    height: 78vh;
     width: 95vw;
     margin: 20px auto;
     display: grid;
@@ -128,11 +128,27 @@ body {
 	background-color :var(--border);
 }
 
-.randomInpt{
+.randomInpt,
+#animationTime{
     background-color:var(--button-background);
     border: 1px solid var(--border);
     margin-left: 5px;
     margin-top: 1x;
     width: 30px;
     color: var(--font-color);
+}
+
+#animationTime{
+    border: none;
+}
+.time{
+    color: var(--font-color);
+    opacity: 50%;
+}
+
+.startdiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

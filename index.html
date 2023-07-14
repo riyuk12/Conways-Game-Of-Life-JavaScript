@@ -16,6 +16,9 @@
 
         <div class="startdiv">
             <button id="start">Start</button>
+            <div class="time">
+                <label for="animationTime">Time(ms):</label><input type="text" id="animationTime" value="100">
+            </div>
         </div>
         <div class="templates">
             <button id="save">Save as template</button>
@@ -28,6 +31,7 @@
                 <option value="pulsar">Pulsar</option>
                 <option value="quasar">Quasar</option>
                 <option value="period15">Penta-decathalon</option>
+                <option value="oscillator">Oscillator</option>
                 <option value="wallV">10x2 wall Vert</option>
                 <option value="wallH">10x2 wall Horz</option>
             </select>
@@ -38,11 +42,11 @@
     <div class="sliders">
         <div class="slider cell-size">
             Cell Size:
-            <input type="range" id="cellSlider" min="10" max="50" value="30">
+            <input type="range" id="cellSlider" min="10" max="50" value="23">
         </div>
         <div class="slider rows">
             Row amount:
-            <input type="range" id="rowSlider" min="10" max="240" value="80">
+            <input type="range" id="rowSlider" min="10" max="240" value="78">
         </div>
         <div class="slider columns">
             Column amount:
