@@ -44,7 +44,7 @@ window.onload = function() {
     columnSlider.addEventListener("input", updateSize);
 
     let saveButton = document.getElementById("save");
-    saveButton.addEventListener("click", saveTemplate);
+    saveButton.addEventListener("click", nameTemplate);
     let overlay=document.getElementById("overlay");
 
     let templateSelect = document.getElementById("template-select");
@@ -54,6 +54,11 @@ window.onload = function() {
     });
 }
 
+const nameTemplate=()=>{
+    let name=prompt("enter template name")
+    saveTemplate(name)
+}
+
 function loadTemplate(template, startRow, startCol) {
     let pattern;
     console.log(startCol,startRow)
@@ -61,6 +66,7 @@ function loadTemplate(template, startRow, startCol) {
     if (template === "saved") {
         let aliveCellsString = localStorage.getItem("template");
         pattern = JSON.parse(aliveCellsString);
+        pattern=pattern[1,pattern.length]
     }
 
     else if(template === "GosperGun"){
@@ -153,8 +159,8 @@ function loadTemplate(template, startRow, startCol) {
     renderGame();
 }
 
-function saveTemplate() {
-    let aliveCellsArray = [...aliveCells];
+function saveTemplate(name) {
+    let aliveCellsArray = [name,...aliveCells];
     let aliveCellsString = JSON.stringify(aliveCellsArray);
 
     //save to localStorage
